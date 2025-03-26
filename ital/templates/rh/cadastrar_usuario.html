@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Usuário</title>
+</head>
+<body>
+
+    <h1>Cadastrar Usuário</h1>
+
+    <form action="{{ url_for('cadastrar_usuario') }}" method="post">
+        {{ form.hidden_tag() }}
+        <label for="Usuário">Nome</label>
+        {{ form.nome}}        
+
+        <!-- Implementar demais campos e validações do formulário de acordo com o quadro de funcionarios. Descomentar os campos. -->
+
+        <label for="Senha">Senha</label>
+        {{ form.senha}}
+       
+        <input type="submit" name="tipoRelatorio" value="Cadastrar Usuário">
+    </form>
+    
+</body>
+</html>

@@ -1,0 +1,48 @@
+/*---------- MAIN ----------*/
+main{
+    padding: 2%;
+    padding-top: 0;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.servico {
+    background-color: #d60012;
+    width: 15vw;
+    height: 15vw;
+    aspect-ratio: 1/1;
+    border-radius: 10%;
+    padding: 2%;
+    margin: 2vw;
+    transition: background-color 0.3s ease;
+    text-decoration: none;
+}
+
+.servico div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.servico:hover{
+    background-color:#c40212;
+}
+
+.servico svg{
+    width: 80%;
+    fill: #f3f0f0;
+}
+
+.servico svg.nofill{
+    fill: none;
+}
+
+.servico h2{
+    color: #ffffff;
+    font-size: 2em;
+    margin-bottom: 0;
+    font-size: 100%;
+    text-align: center;
+}

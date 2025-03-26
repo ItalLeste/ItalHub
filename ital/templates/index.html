@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/login.css">
+    <link rel="shortcut icon" href="../static/icons/iconItal.ico" type="image/x-icon">
+    <title>Sistema Integrado - Ital Leste</title>
+</head>
+<body>
+    <div class="esquerda">
+        <img src="../static/images/login.png" alt="Logo Ital Leste">
+    </div>
+
+    <div class="direita">
+        <div>
+            {% if erro_login %}
+            <script>alert("Usuário ou senha incorretos")</script>
+            {% endif %}
+        </div>
+
+        <div class="credenciais">
+            <img src="../static/images/logoLogin.png" alt="">
+            <form method="POST" action="/">
+                {{ form_login.hidden_tag() }}
+                
+                <h2>Insira suas credenciais</h2>
+                <label for="usuario">Usuário: </label>
+                <br>
+                {{ form_login.usuario }}
+
+                <br>
+
+                <label for="senha">Senha: </label>
+                <br>
+                {{ form_login.senha }}
+
+                <br>
+
+                {{ form_login.submit }}
+            </form>
+        </div>
+    </div>
+</body>
+</html>

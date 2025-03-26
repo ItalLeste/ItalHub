@@ -1,0 +1,92 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f3f0f0;
+}
+
+/*---------- NAVBAR ----------*/
+nav{
+    align-content: center;
+    list-style-type: none;
+    text-align: center;
+    background-color: #d60012;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul{
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+nav ul li{
+    width: 33.34%;
+    height: 15vh;
+    transition: background-color 0.3s ease;
+    
+    display: inline-block;
+}
+
+nav ul li:hover{
+    background-color:#c40212;
+}
+
+nav ul li a{
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 1em;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+}
+
+.logo{
+    width: 18vw;
+}
+
+/* --------- HEADER ---------- */
+header h1{
+    text-align: center;
+    color: #d60012;
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+    background-color: #d60012;
+    color: #ffffff;
+    padding: 2% 5% 2% 5%;
+}
+
+footer ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;        
+    justify-content: space-between;
+}
+
+footer ul li{
+    height: 20vh; 
+    display: flex;
+    align-items: center;
+}
+
+#logoFooter{
+    height: 80%;
+}
+
+footer svg{
+    height: 80%;
+}
+
+footer ul li a{
+    color: #ffffff;
+    text-decoration: none;
+}

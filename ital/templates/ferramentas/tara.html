@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../static/css/style.css">
+    <link rel="stylesheet" href="../../static/css/tara.css">
+    <link rel="shortcut icon" href="../../static/icons/iconItal.ico" type="image/x-icon">  
+    <script src="../../static/js/calculadora.js" defer></script>
+    <title>Tara e Carga Útil</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="#">Usuário logado: <p class="usuario">{{ current_user.username }}</p></a></li>
+            <li><a href="{{ url_for('home') }}"><img src="../../static/images/header.png" alt="Início" class="logo"></a></li>
+            <li><a href="{{ url_for('logout') }}">Sair</a></li>
+        </ul>
+    </nav>
+    <header>
+        <h1>Calculadora</h1>
+    </header>
+    <main>
+        <div id="tara">
+            <h2>Tara e Carga Útil</h2>
+            <div class="calculadora">           
+                <div class="entrada">
+                    <form id="calculaTara">
+                        <div class="coluna">
+                            <label for="PBT": >
+                                PBT (t):
+                                <input type="number" id="PBT" name="PBT">
+                            </label>
+                            <label for="gnv">
+                                Cilindro GNV (kg):
+                                <input type="number" id="gnv" name="gnv">
+                            </label>
+                            <label class="noedit">
+                                Tara Ref. (N):
+                            </label>                  
+                            <span id="taraRef"></span>
+                        </div>
+                        <div class="coluna">
+                            <label for="Tara">
+                                Tara (kg):
+                                <input type="number" id="Tara" name="Tara">
+                            </label>
+                            <label for="carroceria">
+                                Carroceria (kg):
+                                <input type="number" name="carroceria" id="carroceria">
+                            </label>
+                            <label for="taraReal">
+                                Tara real (N):
+                                <input type="number" name="taraReal" id="taraReal">
+                            </label>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="saida">
+                    <p>
+                        <strong>PBT (t): </strong>
+                    </p>
+                    <span id="pbtSaida">.</span>
+                    <p>
+                        <strong>Tara (t): </strong>
+                    </p>
+                    <span id="taraSaida">.</span>
+                    <p>
+                        <strong>Cap. Carga (t):</strong>
+                    </p>                    
+                    <span id="carga">.</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="escolar">
+            <h2>Escolares</h2>
+            <div class="calculadora">
+                <div class="entrada">
+                    <form id="calculaEscolar">
+                        <label for="pbtEscolar">
+                            PBT (t): 
+                            <input type="number" name="pbtEscolar" id="pbtEscolar">
+                        </label>
+                        <br>
+                        <label class="noedit">
+                            Tara Ref. (N): 
+                        </label><br>
+                        <span id="refEscolar">.</span>
+                        <br>
+                        <label for="realEscolar">
+                            Tara Real (N): 
+                            <input type="number" name="realEscolar" id="realEscolar">
+                        </label>
+                    </form>
+                </div>
+
+                <div class="saida">
+                    <p>
+                        <strong>PBT (t): </strong>
+                    </p>
+                    <span id="pbtEscolar">.</span>
+                    <p>
+                        <strong>Tara (t): </strong>
+                    </p>
+                    <span id="taraEscolar">.</span>
+                    <p>
+                        <strong>Cap. Carga (t): </strong>
+                    </p>
+                    <span id="cargaEscolar">.</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="porta-malas">
+            <h2>Capacidade de Porta-Malas</h2>
+            <div class="calculadora">
+                <div class="entrada">
+                    <form id="calculaPortaMalas">
+                        <label for="portaMalas">
+                            Porta-Malas (L):
+                            <input type="number" name="portaMalas" id="portaMalas">
+                        </label>
+                        <br>
+                        <label for="largura">
+                            Largura (mm):
+                            <input type="number" name="largura" id="largura">
+                        </label>
+                        <br>
+                        <label for="altura">
+                            Altura (mm):
+                            <input type="number" name="altura" id="altura">
+                        </label>
+                    </form>
+                </div>
+                <div class="saida">
+                    <p>
+                        <strong>Litros: </strong>
+                    </p>
+                    <span id="litros">.</span>
+                    <p>
+                        <strong>Cap. Útil (L): </strong>
+                    </p>
+                    <span id="capacidade">.</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="vazio">
+            <h2>Em Breve</h2>
+            <div class="calculadora">
+                <div class="entrada">
+
+                </div>
+                <div class="saida">
+
+                </div>
+            </div>
+        </div>
+        <button onclick="limpar()">Limpar Dados</button>
+    </main>
+    <footer>
+        <ul>
+            <li>        
+                <img src="../../static/images/footer.png" alt="Logo Ital Leste" id="logoFooter">
+            </li>
+            <li>
+                <p>© Todos os direitos reservados.</p>
+            </li>
+            <li>
+                <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 192.756 192.756"><g fill-rule="evenodd" clip-rule="evenodd">
+                    <path fill="#ffffff" d="M36.136 157.518h-4.442l-4.521 20.517h4.442l4.521-20.517zM51.347 171.805h-.059l-5.291-14.287h-4.679l-4.521 20.517h4.146l3.223-14.631h.059l5.454 14.631h4.442l4.52-20.517h-4.145l-3.149 14.287zM84.434 157.518h-6.427l-7.353 16.173h-.059l-.287-16.173h-6.484l-4.521 20.517h4.145l3.776-17.146h.059l.104 17.146h4.353l7.743-17.146h.059l-3.775 17.146h4.146l4.521-20.517zM106.316 157.518H90.681l-4.52 20.517h16.138l.801-3.629H91.313l1.17-5.316h10.365l.798-3.629H93.283l.952-4.315h11.283l.798-3.628zM117.865 161.146h6.426l.801-3.628h-17.295l-.799 3.628h6.426l-3.721 16.889h4.442l3.72-16.889zM122.287 178.035h4.354l1.768-8.029h4.588c3.293 0 3.229 1.084 2.611 3.885-.463 2.115-.518 3.172-.439 4.145h4.916l.119-.543c-.869-.344-.707-1.086-.045-4.086.844-3.83.035-4.459-1.549-5.201 2.25-.686 3.863-2.629 4.361-4.887.391-1.773.242-5.801-5.414-5.801h-10.748l-4.522 20.517zm6.885-11.488l1.209-5.486h5.539c2.605 0 2.754 1.6 2.516 2.686-.449 2.029-1.742 2.801-4.051 2.801h-5.213v-.001zM144.922 167.775c-2.123 9.631 5.023 10.807 7.836 10.807 2.814 0 10.473-1.176 12.596-10.807 2.121-9.631-5.023-10.803-7.838-10.803-2.813.001-10.473 1.173-12.594 10.803zm4.441 0c1.264-5.744 4.955-7.172 7.354-7.172s5.457 1.428 4.195 7.172c-1.264 5.744-4.955 7.174-7.354 7.174s-5.464-1.429-4.195-7.174zM124.133 131.885h29.865v18.607H25.688v-18.793h29.899V75.401l58.546 56.484zM25.688 14.173h138.31V31.06h-39.865v55.86l-58.63-55.894H25.688V14.173z"/></g>
+                </svg>
+            </li>
+        </ul>
+    </footer> 
+
+    <script>
+        
+        document.getElementById("pbt").addEventListener('blur', function(){
+    });
+    </script>
+</body>
+</html>
