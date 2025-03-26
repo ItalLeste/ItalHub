@@ -14,7 +14,7 @@ def index():
     form_login = FormLogin()
     erro_login = False
     if form_login.validate_on_submit():
-        usuario_form = form_login.usuario.data
+        usuario_form = form_login.usuario.data.lower()
         senha_form = form_login.senha.data
         usuario = QuadroFuncionarios.query.filter_by(apelido=usuario_form).first()
 
@@ -92,25 +92,55 @@ def controle_estatistico():
         data_inicio = form.data_inicio.data.strftime('%Y-%m-%d')
         data_fim = form.data_fim.data.strftime('%Y-%m-%d')
         inspecoes_escopo, inspecoes_tipo_veiculo = exportar_dados(data_inicio, data_fim)
+        aprovado_sinistro = 0
+        reprovado_sinistro = 0
         total_sinistro = 0
+        aprovado_gnv = 0
+        reprovado_gnv = 0
         total_gnv = 0   
+        aprovado_modificado = 0
+        reprovado_modificado = 0
         total_modificado = 0
         total_geral = 0
+
         
         for k, v in inspecoes_escopo.items():
             for k2, v2 in v.items():
                 periodo = str(k2) + '/' + str(k)
                 dados_escopo[periodo] = [v2['SINISTRO'][0], v2['SINISTRO'][1], v2['SINISTRO'][2], v2['GNV'][0], v2['GNV'][1], v2['GNV'][2], v2['MODIFICADO'][0], v2['MODIFICADO'][1], v2['MODIFICADO'][2]]
 
+                aprovado_sinistro += v2['SINISTRO'][0]
+                reprovado_sinistro += v2['SINISTRO'][1]
                 total_sinistro += v2['SINISTRO'][2]
+
+                aprovado_gnv += v2['GNV'][0]
+                reprovado_gnv += v2['GNV'][1]
                 total_gnv += v2['GNV'][2]
+
+                aprovado_modificado += v2['MODIFICADO'][0]  
+                reprovado_modificado += v2['MODIFICADO'][1]
                 total_modificado += v2['MODIFICADO'][2]
+
                 total_geral += v2['SINISTRO'][2] + v2['GNV'][2] + v2['MODIFICADO'][2]   
 
         for k, v in inspecoes_tipo_veiculo.items():
             dados_tipo_veiculo[k] = v 
 
-        return render_template('/relatorios/quantidade_inspecoes.html', form=form, dados_escopo=dados_escopo, dados_tipo_veiculo=dados_tipo_veiculo, total_sinistro=total_sinistro, total_gnv=total_gnv, total_modificado=total_modificado, total_geral=total_geral)
+        return render_template(
+            '/relatorios/quantidade_inspecoes.html', 
+            form=form, 
+            dados_escopo=dados_escopo, 
+            dados_tipo_veiculo=dados_tipo_veiculo, 
+            aprovado_sinistro=aprovado_sinistro, 
+            reprovado_sinistro=reprovado_sinistro, 
+            total_sinistro=total_sinistro, 
+            aprovado_gnv=aprovado_gnv, 
+            reprovado_gnv=reprovado_gnv, 
+            aprovado_modificado=aprovado_modificado, 
+            reprovado_modificado=reprovado_modificado, 
+            total_gnv=total_gnv, 
+            total_modificado=total_modificado, 
+            total_geral=total_geral)
     
     return render_template('/relatorios/quantidade_inspecoes.html', form=form, dados_escopo=dados_escopo, dados_tipo_veiculo=dados_tipo_veiculo)
 
