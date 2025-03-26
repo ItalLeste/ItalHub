@@ -112,10 +112,10 @@ if __name__ == "__main__":
     for k, v in inspecoes_tipo_veiculo.items():
         dados_tipo_veiculo[k] = v 
 
-    if dados_escopo and dados_tipo_veiculo:
-        print('Dicionários preenchidos')
-        for k, v in dados_escopo.items():
-            print(total_sinistro, total_gnv, total_modificado, total_geral)
+    # if dados_escopo and dados_tipo_veiculo:
+    #     print('Dicionários preenchidos')
+    #     for k, v in dados_escopo.items():
+    #         print(total_sinistro, total_gnv, total_modificado, total_geral)
 
-        for k, v in dados_tipo_veiculo.items():
-            print(k, v)
+    #     for k, v in dados_tipo_veiculo.items():
+    #         print(k, v)
