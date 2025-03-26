@@ -21,133 +21,234 @@
     </form>
 
     {% if dados_escopo and dados_tipo_veiculo %}
-    <button>Imprimir Relatórios</button>
-    <!-- Inserir lógica de impressão. -->
+        <div>
+            <div>
+                <button>Imprimir Relatórios</button>
+                <!-- Inserir lógica de impressão. -->
+            </div>
+            
+            <!-- Quantidades de Inspeções por Escopo -->
+            <div>
+                <div>
+                    <h2>Quantidade de Inspeções por Escopo</h2>
+                </div>
+
+                {% set is_first_table = true %} <!-- Variável para controle da primeira tabela -->
+
+                <!-- Tabela Sinistro-->
+                <div>
+                    <div>
+                        <table border="1" cellpadding="5" cellspacing="0" style="margin-top: 20px; width: 30%; text-align: center;">
+                            <thead>
+                                    {% if is_first_table %}
+                                        <th>Período</th>
+                                    {% endif %}
+                                    <th>Aprovado</th>
+                                    <th>Reprovado</th>
+                                    <th>Total</th>
+                                    <th>%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for periodo, valores in dados_escopo.items() %}
+                                    <tr>
+                                        {% if is_first_table %}
+                                            <td>{{ periodo }}</td>
+                                        {% endif %}
+                                        <td>{{ valores[0] }}</td>
+                                        <td>{{ valores[1] }}</td>
+                                        <td>{{ valores[2] }}</td>
+                                        <td>
+                                            {% if valores[2] > 0 %}
+                                                {{ (valores[1] / valores[2] * 100) | round(2) }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {% set is_first_table = false %}
+
+                    <div>
+                        <table border="1" cellpadding="5" cellspacing="0" style="margin-top: 20px; width: 50%; text-align: center;">
+                            <tr>
+                                <td>Aprovados</td>
+                                <td>{{ aprovado_sinistro}}</td>
+                                <td>{{ ((aprovado_sinistro / total_sinistro) * 100) | round(2)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Reprovados</td>
+                                <td>{{ reprovado_sinistro}}</td>
+                                <td>{{ ((reprovado_sinistro / total_sinistro) * 100) | round(2)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Subtotal</td>
+                                <td>{{ total_sinistro}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tabela GNV-->
+                <div>
+                    <div>
+                        <table border="1" cellpadding="5" cellspacing="0" style="margin-top: 20px; width: 30%; text-align: center;">
+                            <thead>
+                                <tr>
+                                    <th>Aprovado</th>
+                                    <th>Reprovado</th>
+                                    <th>Total</th>
+                                    <th>%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for periodo, valores in dados_escopo.items() %}
+                                    <tr>
+                                        <td>{{ valores[3] }}</td>
+                                        <td>{{ valores[4] }}</td>
+                                        <td>{{ valores[5] }}</td>
+                                        <td>
+                                            {% if valores[5] > 0 %}
+                                                {{ (valores[4] / valores[5] * 100) | round(2) }}
+                                            {% else %}
+                                                0
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div>
+                        <table border="1" cellpadding="5" cellspacing="0" style="margin-top: 20px; width: 50%; text-align: center;">
+                            <tr>
+                                <td>Aprovados</td>
+                                <td>{{ aprovado_gnv}}</td>
+                                <td>{{ ((aprovado_gnv / total_gnv) * 100) | round(2)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Reprovados</td>
+                                <td>{{ reprovado_gnv}}</td>
+                                <td>{{ ((reprovado_gnv / total_gnv) * 100) | round(2)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Subtotal</td>
+                                <td>{{ total_gnv}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Tabela: Modificado -->
+                <div>
+                    <table border="1" cellpadding="5" cellspacing="0" style="margin-top: 20px; width: 30%; text-align: center;">
+                        <thead>
+                            <tr>
+                                <th>Aprovado</th>
+                                <th>Reprovado</th>
+                                <th>Total</th>
+                                <th>%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for periodo, valores in dados_escopo.items() %}
+                            <tr>
+                                <td>{{ valores[6] }}</td>
+                                <td>{{ valores[7] }}</td>
+                                <td>{{ valores[8] }}</td>
+                                <td>
+                                    {% if valores[8] > 0 %}
+                                        {{ (valores[7] / valores[8] * 100) | round(2) }}
+                                    {% else %}
+                                        0
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div>
+                    <div>
+                        <table border="1" cellpadding="5" cellspacing="0" style="margin-top: 20px; width: 50%; text-align: center;">
+                            <tr>
+                                <td>Aprovados</td>
+                                <td>{{ aprovado_modificado}}</td>
+                                <td>{{ ((aprovado_modificado / total_modificado) * 100) | round(2)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Reprovados</td>
+                                <td>{{ reprovado_modificado}}</td>
+                                <td>{{ ((reprovado_modificado / total_modificado) * 100) | round(2)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Subtotal</td>
+                                <td>{{ total_modificado}}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            
+
+                <!-- Tabela de totais -->
+                <div>
+                    <table border="1" cellpadding="5" cellspacing="0" style="margin-top: 20px; width: 100%; text-align: center;">
+                        <thead>
+                            <tr>
+                                <th>Totais</th>
+                                <th>Sinistro</th>
+                                <th>GNV</th>
+                                <th>Modificado</th>
+                                <th>Total Geral</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Total de Inspeções</strong></td>
+                                <td>{{ total_sinistro }}</td>
+                                <td>{{ total_gnv }}</td>
+                                <td>{{ total_modificado }}</td>
+                                <td>{{ total_geral }}</td>
+                            </tr>
+                        </tbody> 
+                    </table>
+                </div>
+            </div>
+            
+            <!-- Tabela de quantidades por escopo -->
+            <div>
+                <div> 
+                    <h2>Inspeções por Tipo de Veiculo</h2>
+                </div>
+
+                <table border="1" cellpadding="5" cellspacing="0" style="margin-top: 20px; width: 50%; text-align: center;">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Tipo de Inspeção</th>
+                            <th>Total</th>
+                            <th>%</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for inspecao, total in dados_tipo_veiculo.items() %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ inspecao }}</td>
+                            <td>{{ total }}</td>
+                            <td>{{ ((total / total_geral) * 100) | round(2) }}</td>
+                        </tr>
+                        {% endfor%}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     {% endif %}
-
-    <!-- Tabela -->
-    {% if dados_escopo and dados_tipo_veiculo %} 
-        <h2>Quantidade de Inspeções por Escopo</h2>
-
-        <!-- Tabela de quantidade por escopo -->
-        <table border="1" cellpadding="5" cellspacing="0" style="margin-top: 20px; width: 100%; text-align: center;">
-            <thead>
-                <tr>
-                    <th rowspan="2">Periodo</th>
-                    <th colspan="4">Sinistro</th>
-                    <th colspan="4">GNV</th>
-                    <th colspan="4">Modificado</th>
-                </tr>
-                <tr>
-                    <th>Aprovado</th>
-                    <th>Reprovado</th>
-                    <th>Total</th>
-                    <th>%</th>
-                    <th>Aprovado</th>
-                    <th>Reprovado</th>
-                    <th>Total</th>
-                    <th>%</th>
-                    <th>Aprovado</th>
-                    <th>Reprovado</th>
-                    <th>Total</th>
-                    <th>%</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for periodo, valores in dados_escopo.items() %}
-                    <tr>
-                        <td>{{ periodo }}</td>
-            
-                        <!-- Sinistro -->
-                        <td>{{ valores[0] }}</td>
-                        <td>{{ valores[1] }}</td>
-                        <td>{{ valores[2] }}</td>
-                        <td>
-                            {% if valores[2] > 0 %}
-                                {{ (valores[1] / valores[2] * 100) | round(2) }}
-                            {% else %}
-                                0
-                            {% endif %}
-                        </td>
-            
-                        <!-- GNV -->
-                        <td>{{ valores[3] }}</td>
-                        <td>{{ valores[4] }}</td>
-                        <td>{{ valores[5] }}</td>
-                        <td>
-                            {% if valores[5] > 0 %}
-                                {{ (valores[4] / valores[5] * 100) | round(2) }}
-                            {% else %}
-                                0
-                            {% endif %}
-                        </td>
-            
-                        <!-- Modificado -->
-                        <td>{{ valores[6] }}</td>
-                        <td>{{ valores[7] }}</td>
-                        <td>{{ valores[8] }}</td>
-                        <td>
-                            {% if valores[8] > 0 %}
-                                {{ (valores[7] / valores[8] * 100) | round(2) }}
-                            {% else %}
-                                0
-                            {% endif %}
-                        </td>
-                    </tr>
-                {% endfor %}   
-            </tbody>
-        </table> 
-         
-        <br>
-
-        <!-- Tabela de totais -->
-        <table border="1" cellpadding="5" cellspacing="0" style="margin-top: 20px; width: 100%; text-align: center;">
-            <thead>
-                <tr>
-                    <th>Totais</th>
-                    <th>Sinistro</th>
-                    <th>GNV</th>
-                    <th>Modificado</th>
-                    <th>Total Geral</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Total de Inspeções</strong></td>
-                    <td>{{ total_sinistro }}</td>
-                    <td>{{ total_gnv }}</td>
-                    <td>{{ total_modificado }}</td>
-                    <td>{{ total_geral }}</td>
-                </tr>
-            </tbody> 
-        </table>
-
-        <br>
-
-        <h2>Inspeções por Tipo de Veiculo</h2>
-
-        <!-- Tabela de quantidades por escopo -->
-        <table border="1" cellpadding="5" cellspacing="0" style="margin-top: 20px; width: 50%; text-align: center;">
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Tipo de Inspeção</th>
-                    <th>Total</th>
-                    <th>%</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for inspecao, total in dados_tipo_veiculo.items() %}
-                <tr>
-                    <td>{{ loop.index }}</td>
-                    <td>{{ inspecao }}</td>
-                    <td>{{ total }}</td>
-                    <td>{{ ((total / total_geral) * 100) | round(2) }}</td>
-                </tr>
-                {% endfor%}
-            </tbody>
-        </table>
-    {% endif %}
-
 </body>
 </html>
