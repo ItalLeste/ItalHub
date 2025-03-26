@@ -117,5 +117,5 @@ if __name__ == "__main__":
         for k, v in dados_escopo.items():
             print(total_sinistro, total_gnv, total_modificado, total_geral)
 
-        # for k, v in dados_tipo_veiculo.items():
-        #     print(k, v)
+        for k, v in dados_tipo_veiculo.items():
+            print(k, v)
