@@ -1,2 +1,3 @@
-/venv/
-/pycache
+venv/
+ital/_pycache_
+instance/
