@@ -19,25 +19,28 @@ body {
 }
 
 .esquerda img{
-    width: 70%;
+    width: 50%;
 }
 
 .direita{
-    width: 45vw;
-    display: flex;
-    align-items: center;
+    width: 22vw;
+    margin: auto;
 }
 
-div.credenciais{
-    border: solid #e50e20;
-    border-radius: 15px;
+.direita img{
+    width: 80%;
 }
 
 h2{
     color: #e50e20;
+    text-align: center;
 }
 
-.direita img{
-    width: 35%;
+label{
+    text-align: left;
 }
 
+.input{
+    margin-bottom: 1em;
+    width: 100%;
+}
