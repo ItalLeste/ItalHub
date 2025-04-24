@@ -1,12 +1,16 @@
 from ital import app, engine
 from flask import render_template, redirect, url_for, request, flash
 from flask_login import login_user, login_required, current_user, logout_user
-from ital.forms import FormLogin, FormDTPCadastrarInspecao, FormCadastroUsuario, FormDataRelatorios
+from ital.forms import FormLogin, FormDTPCadastrarInspecao, FormCadastroUsuario, FormDataRelatorios, FormCorretorRuido
 from ital.models import QuadroFuncionarios, DTP_Stats
 from ital.modules.relatorios.estatisticas_inspecoes import exportar_dados
 from ital.modules.controle_dtp.gerenciador_dtp import GerenciadorDTP
-from datetime import datetime, date
-from dateutil import relativedelta
+from ital.modules.area_restrita.corretor_ruido.gerador_dados_ruido import GeradorDadosRuido
+from ital.modules.area_restrita.corretor_ruido.editor_ruido import EditorRuido
+from ital.modules.area_restrita.cliente import get_exe_path_cliente
+from datetime import datetime
+from time import sleep
+
 
 # Login
 @app.route("/", methods=["GET", "POST"])
@@ -102,7 +106,6 @@ def controle_estatistico():
         reprovado_modificado = 0
         total_modificado = 0
         total_geral = 0
-
         
         for k, v in inspecoes_escopo.items():
             for k2, v2 in v.items():
@@ -156,10 +159,53 @@ def relatorio_financeiro():
 def area_restrita():
     return render_template('/area_restrita/area_restrita.html')
 
-@app.route('/ri-ocultos')
+@app.route('/area-restrita/corretor-gases')
 @login_required
-def ri_ocultos():
-    return render_template('ri_ocultos.html')
+def corretor_gases():
+    return render_template('/area_restrita/corretor_gases.html')
+
+@app.route('/area-restrita/corretor-ruido', methods=['GET', 'POST'])
+@login_required
+def corretor_ruido():
+    form = FormCorretorRuido()
+    if form.validate_on_submit():
+        numero_ficha = int(form.numero_ficha.data)
+        placa = form.placa.data
+        limite_ruido = float(form.limite_ruido.data)
+        rpm_ensaio = int(form.rpm_ensaio.data)
+        rpm_ml = int(form.rpm_ml.data)
+        resultado = form.resultado.data
+        qtd_leituras = int(form.qtd_leituras.data)
+        temp_motor = float(form.temp_motor.data)
+        temp_ar = float(form.temp_ar.data)
+        posicao_motor = form.posicao_motor.data
+        pressao_atm = int(form.pressao_atm.data)
+        velocidade_vento = float(form.velocidade_vento.data)
+        posicao_escapamento = form.posicao_escapamento.data
+        qtd_escapamentos = int(form.qtd_escapamentos.data)
+        valor_ultimo_ajuste = float(form.valor_ultimo_ajuste.data)
+        data_ultimo_ajuste = form.data_ultimo_ajuste.data
+        hora_ultimo_ajuste = datetime.strptime(form.hora_ultimo_ajuste.data, "%H:%M:%S").time()
+        inicio_teste = datetime.strptime(form.inicio_teste.data, "%H:%M:%S").time()
+        fim_teste = datetime.strptime(form.fim_teste.data, "%H:%M:%S").time()
+
+        gerador = GeradorDadosRuido(numero_ficha=numero_ficha, placa=placa, limite_ruido=limite_ruido, rpm_ensaio=rpm_ensaio, rpm_ml=rpm_ml, resultado=resultado, qtd_leituras=qtd_leituras)
+
+        get_exe_path_cliente()
+
+        EditorRuido(dir_editor=r"\\SERVIDOR-PC\Arquivos\03. Vitor\Executavel.exe", gerador=gerador, temp_motor=temp_motor, temp_ar=temp_ar, pressao_atm=pressao_atm, velocidade_vento=velocidade_vento, posicao_motor=posicao_motor, posicao_escapamento=posicao_escapamento, qtd_escapamentos=qtd_escapamentos, valor_ultimo_ajuste=valor_ultimo_ajuste, data_ultimo_ajuste=data_ultimo_ajuste, hora_ultimo_ajuste=hora_ultimo_ajuste, inicio_teste=inicio_teste, fim_teste=fim_teste)
+
+    return render_template('/area_restrita/corretor_ruido.html', form=form)
+
+@app.route('/area-restrita/corretor-opacidade')
+@login_required
+def corretor_opacidade():
+    return render_template('/area_restrita/corretor_opacidade.html')
+
+@app.route('/area-restrita/ocultar-ri')
+@login_required
+def ocultar_ri():
+    return render_template('/area_restrita/ocultar_ri.html')
 
 # Logout
 @app.route('/logout')

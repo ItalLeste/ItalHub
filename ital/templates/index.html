@@ -13,30 +13,33 @@
     </div>
 
     <div class="direita">
-        <img src="../static/images/logoLogin.png" alt="">
+        <div>
+            {% if erro_login %}
+            <script>alert("Usuário ou senha incorretos")</script>
+            {% endif %}
+        </div>
+
+        <div class="credenciais">
+            <img src="../static/images/logoLogin.png" alt="">
             <form method="POST" action="/">
                 {{ form_login.hidden_tag() }}
                 
                 <h2>Insira suas credenciais</h2>
                 <label for="usuario">Usuário: </label>
                 <br>
-                {{ form_login.usuario(class="input") }}
+                {{ form_login.usuario }}
 
                 <br>
 
                 <label for="senha">Senha: </label>
                 <br>
-                {{ form_login.senha(class="input") }}
+                {{ form_login.senha }}
 
                 <br>
 
-                {{ form_login.submit(class="botao") }}
+                {{ form_login.submit }}
             </form>
         </div>
     </div>
-
-    {% if erro_login %}
-    <script>alert("Usuário ou senha incorretos")</script>
-    {% endif %}
 </body>
 </html>

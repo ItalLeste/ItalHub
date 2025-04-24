@@ -57,4 +57,4 @@ if __name__ == "__main__":
         g.cadastrar_stats_dtp(ano=2025, mes=1, modalidade='escolar', total_aprovadas=1, total_reprovadas=1, total_geral=2)
 
 
-    app.run(debug=True, use_reloader=False)  # Inicia o servidor.
+    app.run(host='0.0.0.0', debug=True, use_reloader=True)  # Inicia o servidor.

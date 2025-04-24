@@ -22,7 +22,6 @@ def gerar_dataframe(data_inicio, data_fim):
 def gerar_dataframe_inmetro(df, data_inicio):
     # Gerar o dataframe com os laudos inmetro.
     df_inmetro = df[df['TipoInspecao'] == 'Laudo CSV']
-    df_inmetro.dropna(subset=['SituacaoInspecao'], inplace=True) # Remove inspeções que nao sejam aprovadas ou reprovadas.
     # df_inmetro[['NumeroEscopo', 'NomeEscopo']] = df_inmetro['Escopo'].str.split(' - ', expand=True) # Divide a coluna Escopo em duas colunas.
     df_inmetro = df_inmetro[df_inmetro['NumeroEscopo'] != ''] # Remove linhas cujo numero escopo seja vazio.
     df_inmetro['NumeroEscopo'] = df_inmetro['NumeroEscopo'].astype(int)

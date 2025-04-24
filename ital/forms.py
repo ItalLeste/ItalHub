@@ -1,6 +1,7 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, DateField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, DateField, SelectField, TimeField
 from wtforms.validators import DataRequired
+from datetime import datetime
 
 class FormLogin(FlaskForm):
     usuario = StringField("Usuário", validators=[DataRequired()])
@@ -62,4 +63,29 @@ class FormDTPEditarInspecao(FlaskForm):
 class FormDataRelatorios(FlaskForm):
     data_inicio = DateField('Data de Início', validators=[DataRequired()])
     data_fim = DateField('Data de Fim', validators=[DataRequired()])
+    btn_gerar = SubmitField('Gerar Relatório')
+
+
+# Forms Área Restrita
+# Form Corretor de Ruidos
+class FormCorretorRuido(FlaskForm):
+    numero_ficha = StringField('Número Ficha', validators=[DataRequired()], default=9701)
+    placa = StringField('Placa', validators=[DataRequired()], default='ABC1234')
+    limite_ruido = StringField('Limite de Ruido', validators=[DataRequired()], default=95)
+    rpm_ensaio = StringField('RPM Ensaio', validators=[DataRequired()], default=4000)
+    rpm_ml = StringField('RPM ML', validators=[DataRequired()], default=850)
+    resultado = SelectField('Resultado', choices=['APROVADO', 'REPROVADO'], validators=[DataRequired()], default='APROVADO')
+    qtd_leituras = SelectField('Quantidade de Leituras', choices=[5, 7, 9], validators=[DataRequired()], default=5)
+    temp_motor = StringField('Temperatura do Motor', validators=[DataRequired()], default=90)
+    temp_ar = StringField('Temperatura do Ar', validators=[DataRequired()], default=25)
+    pressao_atm = StringField('Pressão Atmosferica', validators=[DataRequired()], default=92)
+    velocidade_vento = StringField('Velocidade do Vento', validators=[DataRequired()], default=0.01)
+    posicao_motor = SelectField('Posição do Motor', choices=['Central','Dianteiro', 'Traseiro'], validators=[DataRequired()], default='Dianteiro')
+    posicao_escapamento = SelectField('Posição do Escapamento', choices=['Traseiro, horizontal, unitário','Traseiro, horizontal, duplo', 'Outros'], validators=[DataRequired()], default='Traseiro, horizontal, unitário')
+    qtd_escapamentos = StringField('Quantidade de Escapamentos', validators=[DataRequired()], default=1)
+    valor_ultimo_ajuste = StringField('Valor do Ultimo Ajuste', validators=[DataRequired()], default=94.2)
+    data_ultimo_ajuste = DateField('Data do Ultimo Ajuste', validators=[DataRequired()], default=datetime.now())
+    hora_ultimo_ajuste = StringField('Hora do Ultimo Ajuste', validators=[DataRequired()], default=datetime.now().strftime('%H:%M:%S'))
+    inicio_teste = StringField('Inicio do Teste', validators=[DataRequired()], default=datetime.now().strftime('%H:%M:%S'))
+    fim_teste = StringField('Fim do Teste', validators=[DataRequired()], default=datetime.now().strftime('%H:%M:%S'))
     btn_gerar = SubmitField('Gerar Relatório')

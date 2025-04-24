@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corretor de Ruidos</title>
+</head>
+<body>
+    <main>
+        <div>
+            <form action="{{ url_for('corretor_ruido') }}" method="POST">
+                {{ form.hidden_tag() }}
+                <label for="numeroFicha">Número Ficha</label>
+                {{ form.numero_ficha }}
+                <label for="placa">Placa</label>
+                {{ form.placa }}
+                <label for="limiteRuido">Limite de Ruido</label>
+                {{ form.limite_ruido }}
+                <label for="rpmEnsaio">RPM Ensaio</label>
+                {{ form.rpm_ensaio }}
+                <label for="rpmML">RPM ML</label>
+                {{ form.rpm_ml }}
+                <label for="resultado">Resultado</label>
+                {{ form.resultado }}
+                <label for="qtdLeituras">Quantidade de Leituras</label>
+                {{ form.qtd_leituras }}
+                <label for="tempMotor">Temperadura do Motor</label>
+                {{ form.temp_motor }}
+                <label for="tempAr">Temperadura do Ar</label>
+                {{ form.temp_ar }}
+                <label for="pressaoAtm">Pressão Atmosferica</label>
+                {{ form.pressao_atm }}
+                <label for="velocidadeVento">Velocidade do Vento"></label>
+                {{ form.velocidade_vento }}
+                <label for="posicaoMotor">Posição Motor</label>
+                {{ form.posicao_motor }}
+                <label for="posicaoEscapamento">Posição Escapemento></label>
+                {{ form.posicao_escapamento }}
+                <label for="qtdEscapamento">Quantidade de Escapamento"></label>
+                {{ form.qtd_escapamentos }}
+                <label for="valorUltimoAjuste">Valor do Ultimo Ajuste</label>
+                {{ form.valor_ultimo_ajuste }}
+                <label for="dataUltimoAjuste">Data do Ultimo Ajuste</label>
+                {{ form.data_ultimo_ajuste }}
+                <label for="horaUltimoAjuste">Hora do Ultimo Ajuste</label>
+                {{ form.hora_ultimo_ajuste(type="time", step="1") }}
+                <label for="inicioTeste">Inicio do Teste</label>
+                {{ form.inicio_teste(type="time", step="1") }}
+                <label for="fimTeste">Fim do Teste</label>
+                {{ form.fim_teste(type="time", step="1") }}
+                <input type="submit" name="tipoRelatorio" value="Corretor de Ruidos">
+                
+            </form>
+
+            {% if validacao_ruido %}
+                <p>{{ validacao_ruido.numero_ficha }}</p>
+            {% endif %}
+        </div>
+    </main>
+</body>
+</html>
